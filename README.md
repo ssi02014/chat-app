@@ -15,7 +15,7 @@
 
 ## 정리 문서
 
-- [firebase]()
+- [firebase](https://github.com/ssi02014/chat-app/blob/master/documents/firebase.md)
 
 ## Firebase?
 
