@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# 💻 Chat App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- React + Firebase 를 이용한 채팅 애플리케이션 구현
 
-## Available Scripts
+## 주요 기술 스택
 
-In the project directory, you can run:
+- React v18
+- TypeScript
+- Redux-toolkit
+- styled-components
+- Firebase v9
+- craco
 
-### `yarn start`
+<br />
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 정리 문서
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [firebase]()
 
-### `yarn test`
+## Firebase?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Firebase는 `구글`에서 개발한 모바일 또는 웹을 개발하기위한 플랫폼이다.
+- Firebase는 애플리케이션을 구현하는데 기본적으로 필요한 `인증`, `데이터베이스`, `스토리지`, `푸시 알림`, `배포` 등의 기능을 포함한다.
+  - 이중에서 `데이터베이스`의 기능이 특별하다. 왜? Firebase에서 사용하는 데이터베이스는 Mysql이나 오라클 같은 관계형 데이터베이스가 아닌 MongoDB 같은 `NoSQL 기반의 Document 형식`의 빠르고 간편한 데이터베이스이다.
+  - 또한, RTSP라는 `Real Time Stream Protocol` 방식을 지원한다. RTSP는 실시간으로 데이터들을 전송해주는 방식이다. 이러한 방식 덕분에 실시간 기능이 필요한 `채팅`이나 `택시 앱`같은 것을 쉽게 구현이 가능하다.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br />
