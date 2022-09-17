@@ -2,13 +2,13 @@
 
 ## 초기 셋팅
 
-1. 설치
+### 1. 설치
 
 ```
 yarn add firebase
 ```
 
-2. SDK 추가
+### 2. SDK 추가
 
 - firebaseConfig의 value들은 아래와 같이 `env` 파일에서 관리한다.
 - 참고로 env파일은 `root` 폴더에 생성해야 작동하며, React에서는 `REACT_APP_*` 형태로 작성해야 정상 작동한다.
@@ -51,7 +51,7 @@ const analytics = getAnalytics(app);
 export { fireStore, analytics };
 ```
 
-3. firebase 연결 확인
+### 3. firebase 연결 확인
 
 ```tsx
 // index.tsx

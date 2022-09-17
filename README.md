@@ -2,11 +2,13 @@
 
 - React + Firebase 를 이용한 채팅 애플리케이션 구현
 
+<br />
+
 ## 주요 기술 스택
 
 - React v18
 - TypeScript
-- Redux-toolkit
+- redux-toolkit
 - styled-components
 - Firebase v9
 - craco
@@ -16,6 +18,8 @@
 ## 정리 문서
 
 - [firebase](https://github.com/ssi02014/chat-app/blob/master/documents/firebase.md)
+
+<br />
 
 ## Firebase?
 
