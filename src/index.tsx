@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "@redux/store";
 import { firebase, analytics } from "./firebase";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
