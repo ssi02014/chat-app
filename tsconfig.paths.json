@@ -6,7 +6,8 @@
       "@redux/*": ["./redux/*"],
       "@pages/*": ["./pages/*"],
       "@utils/*": ["./utils/*"],
-      "@hooks/*": ["./hooks/*"]
+      "@hooks/*": ["./hooks/*"],
+      "@styles/*": ["./styles/*"]
     }
   }
 }

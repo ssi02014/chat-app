@@ -1,4 +1,6 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
+import AuthLayout from "@components/Layout/AuthLayout";
+import GlobalStyle from "@styles/globalStyles";
 import { Route, Routes } from "react-router-dom";
 
 // Code Splitting
@@ -8,11 +10,24 @@ const ChatPage = lazy(() => import("./pages/ChatPage"));
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<ChatPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-    </Routes>
+    <>
+      <GlobalStyle />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {/* Chat */}
+          <Route path="/" element={<ChatPage />} />
+
+          {/* Auth */}
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
+
+          {/* Not Found */}
+          <Route path="*" element={<div>Not Found</div>} />
+        </Routes>
+      </Suspense>
+    </>
   );
 }
 
