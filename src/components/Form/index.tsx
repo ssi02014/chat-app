@@ -5,6 +5,10 @@ interface FormProps extends ComponentProps<"form"> {
   direction?: string;
 }
 
+interface FormErrorProps {
+  children: React.ReactNode;
+}
+
 const Form = ({
   children,
   direction = "row",
@@ -28,6 +32,10 @@ const Form = ({
       {children}
     </S.FormWrapper>
   );
+};
+
+Form.Error = ({ children }: FormErrorProps) => {
+  return <S.FormErrorContent>{children}</S.FormErrorContent>;
 };
 
 export default Form;

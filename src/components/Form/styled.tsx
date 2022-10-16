@@ -28,3 +28,9 @@ export const FormWrapper = styled.form<FormWrapperProps>`
     cursor: pointer;
   }
 `;
+
+export const FormErrorContent = styled.p`
+  width: 100%;
+  justify-self: flex-start;
+  color: red;
+`;

@@ -1,34 +1,42 @@
-import React, { ChangeEvent, ComponentProps } from "react";
+import React, { ChangeEvent, ComponentProps, ForwardedRef } from "react";
 import * as S from "./styled";
 
-interface InputBoxProps extends ComponentProps<"input"> {
+interface InputBoxProps extends Omit<ComponentProps<"input">, "ref"> {
   label?: string;
 }
 
-const InputBox = ({
-  type = "text",
-  value,
-  placeholder,
-  label,
-  id,
-  onChange,
-}: InputBoxProps) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (onChange) onChange(e);
-  };
+const InputBox = React.forwardRef(
+  (
+    {
+      type = "text",
+      value,
+      placeholder,
+      label,
+      id,
+      onChange,
+      ...rest
+    }: InputBoxProps,
+    ref: ForwardedRef<HTMLInputElement>
+  ) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      if (onChange) onChange(e);
+    };
 
-  return (
-    <S.InputBoxWrapper>
-      {label && <S.StyledLabel htmlFor={id}>{label}</S.StyledLabel>}
-      <S.StyledInput
-        id={id}
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={handleChange}
-      />
-    </S.InputBoxWrapper>
-  );
-};
+    return (
+      <S.InputBoxWrapper>
+        {label && <S.StyledLabel htmlFor={id}>{label}</S.StyledLabel>}
+        <S.StyledInput
+          ref={ref}
+          id={id}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={handleChange}
+          {...rest}
+        />
+      </S.InputBoxWrapper>
+    );
+  }
+);
 
 export default InputBox;
