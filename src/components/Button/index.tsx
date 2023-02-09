@@ -11,6 +11,7 @@ const Button = ({
   children,
   bgColor = "",
   fontColor = "#fff",
+  disabled = false,
   onClick,
 }: ButtonProps) => {
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -19,6 +20,7 @@ const Button = ({
 
   return (
     <S.StyledButton
+      disabled={disabled}
       bgColor={bgColor}
       fontColor={fontColor}
       onClick={handleClick}

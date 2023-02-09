@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Form from "@components/Form";
 import InputBox from "@components/Input";
 import Button from "@components/Button";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterPage = () => {
   const {
@@ -12,17 +13,34 @@ const RegisterPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onSubmit" });
+  const [errorFromSubmit, setErrorFromSubmit] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const passwordRef = useRef();
   passwordRef.current = watch("password");
 
-  const onSubmit = handleSubmit(
-    (data) => {
-      console.log(data);
-    },
-    (error) => {
-      console.log(error);
+  const onSubmit = handleSubmit(async (data) => {
+    const auth = getAuth();
+    setLoading(true);
+
+    try {
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      console.log(res);
+    } catch (err: any) {
+      const errorMessage = err.message;
+
+      setErrorFromSubmit(errorMessage);
+      setTimeout(() => {
+        setErrorFromSubmit("");
+      }, 5000);
+    } finally {
+      setLoading(false);
     }
-  );
+  });
 
   return (
     <Form direction="column" onSubmit={onSubmit}>
@@ -85,8 +103,11 @@ const RegisterPage = () => {
       {errors["password-confirm"]?.type === "validate" && (
         <Form.Error>The passwords do not match</Form.Error>
       )}
+      {errorFromSubmit && <Form.Error>{errorFromSubmit}</Form.Error>}
 
-      <Button bgColor="#7A84EB">제출</Button>
+      <Button bgColor="#7A84EB" disabled={loading}>
+        제출
+      </Button>
       <Link to="/login">이미 아이디가 없다면...</Link>
     </Form>
   );

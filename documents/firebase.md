@@ -1,8 +1,12 @@
 # 💻 firebase
 
+- [FireBase API 문서](https://firebase.google.com/docs/auth/web/firebaseui?hl=ko)
+
+<br />
+
 ## 초기 셋팅
 
-### 1. 설치
+### 1. 설치 (v9)
 
 ```
 yarn add firebase
@@ -77,5 +81,44 @@ root.render(
   </React.StrictMode>
 );
 ```
+
+<br />
+
+## 암호 기반 계정 만들기(v9)
+
+```js
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth();
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+```
+
+<br />
+
+```
+Uncaught (in promise) FirebaseError: Firebase: Error (auth/configuration-not-found)
+```
+
+- 이대로만 바로 유저생성을 하려고하면 다음과 같은 에러가 발생한다.
+
+![스크린샷 2023-02-09 오후 10 21 55](https://user-images.githubusercontent.com/64779472/217824297-d62560d9-8658-4d8b-be2a-66db444e8621.png)
+
+- 위와 같은 에러가 발생하면 firebase 페이지에 들어가서 Authentication에서 인증 방식에 대해서 추가해줘야한다. 아래와 같이 이메일/비밀번호를 추가한다.
+
+<br />
+
+![스크린샷 2023-02-09 오후 10 25 17](https://user-images.githubusercontent.com/64779472/217825052-ebcbf031-01a4-4f2b-b97f-c9655c355b14.png)
+
+- 앞에 말한 셋팅 후에 유저 생성을해보면 다음과 같이 유저가 생성된 것을 확인할 수 있다.
 
 <br />
