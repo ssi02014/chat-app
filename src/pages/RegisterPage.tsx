@@ -4,7 +4,13 @@ import InputBox from "@components/Input";
 import Button from "@components/Button";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import md5 from "md5";
+import { getDatabase, ref, set } from "firebase/database";
 
 const RegisterPage = () => {
   const {
@@ -21,15 +27,28 @@ const RegisterPage = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const auth = getAuth();
+    const db = getDatabase();
     setLoading(true);
 
     try {
-      const res = await createUserWithEmailAndPassword(
+      const { user } = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
-      console.log(res);
+
+      await updateProfile(user, {
+        displayName: data.name,
+        photoURL: `http://gravatar.com/avatar/${md5(
+          data.email || ""
+        )}?d=identicon`,
+      });
+
+      // 데이터베이스에 저장
+      await set(ref(db, "users/" + user.uid), {
+        name: user.displayName,
+        image: user.photoURL,
+      });
     } catch (err: any) {
       const errorMessage = err.message;
 

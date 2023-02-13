@@ -87,20 +87,22 @@ root.render(
 ## 암호 기반 계정 만들기(v9)
 
 ```js
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; // (*)
 
 const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+
+try {
+  // Signed in
+  const { user } = await createUserWithEmailAndPassword(
+    auth,
+    data.email,
+    data.password
+  );
+} catch (err) {
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  //...
+}
 ```
 
 <br />
@@ -120,5 +122,95 @@ Uncaught (in promise) FirebaseError: Firebase: Error (auth/configuration-not-fou
 ![스크린샷 2023-02-09 오후 10 25 17](https://user-images.githubusercontent.com/64779472/217825052-ebcbf031-01a4-4f2b-b97f-c9655c355b14.png)
 
 - 앞에 말한 셋팅 후에 유저 생성을해보면 다음과 같이 유저가 생성된 것을 확인할 수 있다.
+
+<br />
+
+## 생성한 유저에 상세 정보 추가하기 (v9)
+
+```js
+// RegisterPage.tsx
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile, // (*)
+} from "firebase/auth";
+
+const onSubmit = handleSubmit(async (data) => {
+    const auth = getAuth();
+    setLoading(true);
+
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+
+      await updateProfile(user, {
+        displayName: data.name,
+        photoURL: `http://gravatar.com/avatar/${md5(
+          data.email || ""
+        )}?d=identicon`,
+      }); // (*)
+    } catch (err: any) {
+      // catch
+    } finally {
+      // finally
+    }
+  });
+```
+
+## Firebase에 생성한 유저 데이터베이스에 저장 (v9)
+
+- [Firebase 데이터베이스 API](https://firebase.google.com/docs/database/web/start?hl=ko)
+- database 생성 (프로젝트에서는 Realtime Database로 생성 함)
+- firebase.ts에 database 셋팅
+
+```js
+import { getDatabase } from "firebase/database"; // (*)
+
+const firebaseConfig = {
+  // ...
+  databaseURL: process.env.REACT_APP_DATABASE_URL, // 환경 변수에 추가
+};
+
+// Initialize Firebase
+const firebase = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebase);
+const database = getDatabase(firebase); // (*)
+
+export { firebase, analytics, database };
+```
+
+- 실제 데이터베이스 저장 코드
+
+```js
+// RegisterPage.tsx
+import { getDatabase, ref, set } from "firebase/database"; // (*)
+
+const onSubmit = handleSubmit(async (data) => {
+  const auth = getAuth();
+  const db = getDatabase();
+  setLoading(true);
+
+  try {
+    const { user } = await createUserWithEmailAndPassword(/* ... */);
+
+    // 실제 데이터베이스에 저장
+    await set(ref(db, "users/" + user.uid), {
+      name: user.displayName,
+      image: user.photoURL,
+    });
+  } catch (err: any) {
+    // ...
+  } finally {
+    // ...
+  }
+  });
+```
+
+- 결과물
+
+<img width="746" alt="스크린샷 2023-02-14 오전 1 19 48" src="https://user-images.githubusercontent.com/64779472/218513167-bee420ce-a367-4810-a486-cb717178dad5.png">
 
 <br />
