@@ -1,11 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_PROJECT_ID,
@@ -18,7 +16,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebase);
-const database = getDatabase(firebase);
+// const analytics = getAnalytics(firebase);
 
-export { firebase, analytics, database };
+export { firebase };

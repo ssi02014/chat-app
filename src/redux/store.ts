@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { counterSlice } from "./slices/counter";
+import { userSlice } from "./slices/user";
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer,
+    user: userSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

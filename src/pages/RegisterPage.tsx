@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import md5 from "md5";
 import { getDatabase, ref, set } from "firebase/database";
+import { firebase } from "../firebase.config";
 
 const RegisterPage = () => {
   const {
@@ -26,8 +27,8 @@ const RegisterPage = () => {
   passwordRef.current = watch("password");
 
   const onSubmit = handleSubmit(async (data) => {
-    const auth = getAuth();
-    const db = getDatabase();
+    const auth = getAuth(firebase);
+    const db = getDatabase(firebase);
     setLoading(true);
 
     try {
@@ -127,7 +128,7 @@ const RegisterPage = () => {
       <Button bgColor="#7A84EB" disabled={loading}>
         제출
       </Button>
-      <Link to="/login">이미 아이디가 없다면...</Link>
+      <Link to="/login">이미 아이디가 있다면...</Link>
     </Form>
   );
 };
